@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jorge — Uma Jornada Metabólica | PCDT DM2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+<style>
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --ff-body:    'DM Sans', system-ui, sans-serif;
+  --ff-accent:  'Lora', Georgia, serif;
+
+  --cream:      #F7F4EF;
+  --cream-dark: #EDE8DF;
+  --sand:       #E6DFD2;
+  --sand-dark:  #D4C9B5;
+  --text:       #1C1810;
+  --text-2:     #5A5040;
+  --text-3:     #9A8E7C;
+  --border:     rgba(90,70,40,.14);
+  --border-2:   rgba(90,70,40,.25);
+
+  --blue-bg:    #EDF4FD;
+  --blue-bd:    #B3CEEE;
+  --blue-txt:   #1A4E8A;
+  --blue-mid:   #2C6DB8;
+
+  --green-bg:   #EDFAF0;
+  --green-bd:   #A5D9AD;
+  --green-txt:  #1A6327;
+
+  --amber-bg:   #FDF5E4;
+  --amber-bd:   #E8C065;
+  --amber-txt:  #7A4A08;
+
+  --red-bg:     #FEF0F0;
+  --red-bd:     #F0B0B0;
+  --red-txt:    #8A1C1C;
+
+  --warn-bg:    #FEF8EC;
+  --warn-bd:    #ECC87A;
+
+  --ok:         #1A6327;
+  --warn:       #7A4A08;
+  --bad:        #8A1C1C;
+
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  16px;
+  --r-xl:  22px;
+
+  --shadow-card: 0 2px 12px rgba(60,40,15,.09), 0 1px 3px rgba(60,40,15,.06);
+  --shadow-hover: 0 4px 20px rgba(60,40,15,.13), 0 2px 6px rgba(60,40,15,.08);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+body {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  color: var(--text);
+  background: linear-gradient(160deg, #F2EDE4 0%, #EBE5D9 40%, #F0EBE1 100%);
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 2.5rem) clamp(.75rem, 4vw, 1.5rem);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.app-wrap {
+  width: min(100%, 920px);
+  margin: 0 auto;
+}
+
+/* ─── Page header ────────────────────────────────────────────── */
+.page-header {
+  margin-bottom: clamp(1.25rem, 4vw, 2rem);
+}
+
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: clamp(44px, 7vw, 56px);
+  height: clamp(44px, 7vw, 56px);
+  border-radius: 50%;
+  background: var(--sand);
+  border: 2px solid var(--sand-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 3.5vw, 28px);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(60,40,10,.12);
+}
+
+.hero-text h1 {
+  font-family: var(--ff-accent);
+  font-size: clamp(17px, 2.8vw, 22px);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -.2px;
+  line-height: 1.25;
+}
+
+.hero-text p {
+  font-size: clamp(12px, 1.8vw, 13.5px);
+  color: var(--text-2);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+/* ─── Progress bar ───────────────────────────────────────────── */
+.progress-track {
+  height: 3px;
+  background: var(--sand);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7A6040, #4A3820);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+/* ─── Timeline ───────────────────────────────────────────────── */
+.timeline-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.timeline-scroll::-webkit-scrollbar { display: none; }
+
+.tl-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  opacity: .45;
+  transition: opacity .2s, transform .15s;
+  padding: 2px 4px;
+}
+.tl-item:hover { opacity: .75; transform: translateY(-1px); }
+.tl-item.past  { opacity: .6; }
+.tl-item.active{ opacity: 1; }
+
+.tl-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--sand-dark);
+  background: var(--cream);
+  transition: all .2s;
+}
+.tl-item.past .tl-dot   { background: var(--sand-dark); border-color: var(--sand-dark); }
+.tl-item.active .tl-dot { background: var(--text); border-color: var(--text); width: 13px; height: 13px; }
+
+.tl-item.danger .tl-dot           { border-color: #C0392B; }
+.tl-item.danger.past .tl-dot      { background: rgba(192,57,43,.35); border-color: rgba(192,57,43,.5); }
+.tl-item.danger.active .tl-dot    { background: #C0392B; border-color: #C0392B; }
+
+.tl-label {
+  font-size: 10.5px;
+  color: var(--text-3);
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.tl-item.active .tl-label { color: var(--text); font-weight: 600; }
+
+/* ─── Card ───────────────────────────────────────────────────── */
+.case-card {
+  background: #FDFBF7;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow .2s;
+}
+
+/* ─── Year strip ─────────────────────────────────────────────── */
+.year-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: .6rem 1.5rem;
+  background: var(--sand);
+  border-bottom: 1px solid var(--border);
+}
+.year-lbl {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-3);
+}
+.year-arrow { font-size: 11px; color: var(--text-3); }
+.year-val {
+  font-family: var(--ff-accent);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ─── Card header ────────────────────────────────────────────── */
+.case-header {
+  padding: clamp(.9rem, 2.5vw, 1.25rem) clamp(1rem, 3vw, 1.5rem);
+  border-bottom: 1px solid var(--border);
+}
+.case-header.sev-normal  { background: var(--cream-dark); }
+.case-header.sev-warning { background: var(--warn-bg);  border-color: var(--warn-bd); }
+.case-header.sev-bad     { background: #FEF3EB; border-color: #EEC498; }
+.case-header.sev-danger  { background: var(--red-bg); border-color: var(--red-bd); }
+
+.ch-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ch-title {
+  font-family: var(--ff-accent);
+  font-size: clamp(15px, 2.5vw, 18px);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.ch-subtitle {
+  font-size: clamp(12px, 1.8vw, 13px);
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.age-badge {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: rgba(255,255,255,.7);
+  border: 1px solid var(--border-2);
+  color: var(--text);
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* ─── Card body ──────────────────────────────────────────────── */
+.case-body {
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* ─── Vignette ───────────────────────────────────────────────── */
+.vignette {
+  background: var(--cream-dark);
+  border-radius: var(--r-md);
+  padding: clamp(.85rem, 2.5vw, 1.1rem) clamp(.9rem, 2.5vw, 1.2rem);
+  margin-bottom: 1.25rem;
+  border-left: 3px solid var(--sand-dark);
+  font-size: clamp(13.5px, 1.9vw, 14.5px);
+  line-height: 1.8;
+  color: var(--text);
+}
+.vignette em { font-style: italic; color: var(--text-2); }
+
+/* ─── Question box ───────────────────────────────────────────── */
+.question-box {
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-bd);
+  border-radius: var(--r-md);
+  padding: clamp(.85rem, 2.5vw, 1rem) clamp(.9rem, 2.5vw, 1.2rem);
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.q-icon { font-size: 20px; color: var(--blue-mid); flex-shrink: 0; margin-top: 1px; }
+.q-text { font-size: clamp(13.5px, 1.9vw, 14.5px); font-weight: 500; color: var(--blue-txt); line-height: 1.55; }
+
+/* ─── Exams ──────────────────────────────────────────────────── */
+.exams-section { margin-bottom: 1.25rem; }
+.block-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.data-box {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.data-row:last-child { border-bottom: none; }
+.data-key {
+  font-size: clamp(13px, 1.8vw, 13.5px);
+  color: var(--text-2);
+  flex: 1;
+  min-width: 0;
+}
+.data-val {
+  font-size: clamp(13px, 1.8vw, 13.5px);
+  font-weight: 600;
+  text-align: right;
+  flex-shrink: 0;
+}
+.data-ref {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-3);
+  margin-top: 1px;
+}
+.ok   { color: var(--ok); }
+.warn { color: var(--warn); }
+.bad  { color: var(--bad); }
+
+/* ─── Reveal button ──────────────────────────────────────────── */
+.reveal-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  border: 1.5px dashed var(--border-2);
+  background: transparent;
+  font-family: var(--ff-body);
+  font-size: clamp(13.5px, 1.9vw, 14px);
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  transition: all .18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.reveal-btn:hover {
+  background: var(--cream-dark);
+  color: var(--text);
+  border-color: var(--sand-dark);
+  border-style: solid;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(60,40,10,.1);
+}
+.reveal-btn:active { transform: translateY(0); box-shadow: none; }
+.reveal-btn:focus-visible { outline: 2px solid var(--blue-mid); outline-offset: 2px; }
+.reveal-btn.is-open {
+  border-style: solid;
+  background: var(--cream-dark);
+  color: var(--text);
+  border-color: var(--sand-dark);
+}
+
+/* ─── Answer section ─────────────────────────────────────────── */
+.answer-section { display: none; }
+.answer-section.visible { display: block; }
+
+.answer-block { margin-bottom: 1.4rem; }
+.answer-block p,
+.answer-block li {
+  font-size: clamp(13.5px, 1.9vw, 14.5px);
+  line-height: 1.8;
+  color: var(--text);
+}
+.answer-block ul { padding-left: 1.35rem; margin-top: 5px; }
+.answer-block li { margin-bottom: 5px; }
+.answer-block strong { font-weight: 600; }
+
+/* ─── Complication tags ──────────────────────────────────────── */
+.comp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tag {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.tag-amber  { background: var(--amber-bg); color: var(--amber-txt); border-color: var(--amber-bd); }
+.tag-red    { background: var(--red-bg);   color: var(--red-txt);   border-color: var(--red-bd);   }
+.tag-blue   { background: var(--blue-bg);  color: var(--blue-txt);  border-color: var(--blue-bd);  }
+.tag-green  { background: var(--green-bg); color: var(--green-txt); border-color: var(--green-bd); }
+.tag-gray   { background: var(--cream-dark); color: var(--text-2);  border-color: var(--border-2); }
+
+/* ─── Fluxogram ──────────────────────────────────────────────── */
+.fluxo-wrap {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+.fluxo-hdr {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-3);
+  margin-bottom: .75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.flux-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: .45rem 0;
+}
+.flux-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  padding: 6px 13px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  border: 1px solid;
+}
+.fn-blue   { background: var(--blue-bg);  border-color: var(--blue-bd);  color: var(--blue-txt);  }
+.fn-green  { background: var(--green-bg); border-color: var(--green-bd); color: var(--green-txt); }
+.fn-amber  { background: var(--amber-bg); border-color: var(--amber-bd); color: var(--amber-txt); }
+.fn-red    { background: var(--red-bg);   border-color: var(--red-bd);   color: var(--red-txt);   }
+.fn-gray   { background: var(--sand);     border-color: var(--sand-dark); color: var(--text-2);   }
+.fn-hl     { outline: 2.5px solid #1A4E8A; outline-offset: 3px; }
+.flux-arrow { color: var(--text-3); font-size: 14px; }
+.flux-here {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--blue-txt);
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-bd);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-top: 4px;
+}
+
+/* ─── Section divider ────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+/* ─── SUS / SBD grid ─────────────────────────────────────────── */
+.sus-sbd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.sus-box, .sbd-box {
+  border-radius: var(--r-md);
+  padding: .9rem 1rem;
+  border: 1px solid;
+}
+.sus-box { background: var(--blue-bg); border-color: var(--blue-bd); }
+.sbd-box { background: var(--green-bg); border-color: var(--green-bd); }
+.sbd-box.diverge { background: var(--red-bg); border-color: var(--red-bd); }
+
+.box-hdr {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 7px;
+}
+.box-ttl-sus  { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--blue-txt); }
+.box-ttl-sbd  { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--green-txt); }
+.sbd-box.diverge .box-ttl-sbd { color: var(--red-txt); }
+.sus-box p, .sbd-box p {
+  font-size: clamp(12.5px, 1.8vw, 13px);
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.agree-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+.ic-check { background: var(--green-bg); color: var(--green-txt); border-color: var(--green-bd); }
+.ic-x     { background: var(--red-bg);   color: var(--red-txt);   border-color: var(--red-bd);   }
+
+/* ─── Footer note ────────────────────────────────────────────── */
+.footer-note {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: clamp(12.5px, 1.7vw, 13px);
+  color: var(--text-3);
+  font-style: italic;
+  line-height: 1.65;
+}
+
+/* ─── Nav footer ─────────────────────────────────────────────── */
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  gap: 12px;
+}
+.nav-btn {
+  padding: 9px clamp(14px, 3vw, 22px);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-2);
+  background: transparent;
+  font-family: var(--ff-body);
+  font-size: clamp(13px, 1.8vw, 14px);
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.nav-btn:hover {
+  background: var(--cream-dark);
+  color: var(--text);
+  border-color: var(--sand-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(60,40,10,.1);
+}
+.nav-btn:active { transform: translateY(0); box-shadow: none; }
+.nav-btn:focus-visible { outline: 2px solid var(--blue-mid); outline-offset: 2px; }
+.nav-btn:disabled { opacity: .28; cursor: default; transform: none; box-shadow: none; }
+.nav-counter { font-size: 12.5px; color: var(--text-3); font-weight: 500; }
+
+/* ─── sr-only ────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  body { padding: .75rem .75rem 2rem; }
+
+  .sus-sbd-grid { grid-template-columns: 1fr; }
+
+  .ch-row { flex-direction: row; }
+  .age-badge { font-size: 11.5px; padding: 4px 10px; }
+
+  .data-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    padding: 9px 12px;
+  }
+  .data-val { text-align: left; }
+
+  .nav-btn { padding: 8px 14px; font-size: 13px; }
+  .year-strip { padding: .55rem 1rem; }
+  .case-header { padding: .85rem 1rem; }
+  .case-body { padding: 1rem; }
+  .fluxo-wrap { padding: .85rem .8rem; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .sus-sbd-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1025px) {
+  body { padding: 2.5rem 1.5rem 3.5rem; }
+  .app-wrap { max-width: 920px; }
+  .case-card { box-shadow: var(--shadow-hover); }
+}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">Casos clínicos interativos: A jornada do Jorge com diabetes mellitus tipo 2 — do rastreamento até as complicações crônicas graves</h2>
+
+<div class="app-wrap">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="hero-row">
+      <div class="avatar" aria-hidden="true">👨</div>
+      <div class="hero-text">
+        <h1>Jorge — uma jornada metabólica</h1>
+        <p>Casos clínicos baseados no PCDT DM2 2026 e Diretrizes SBD 2024/2025</p>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="timeline-scroll" id="timelineNav"></div>
+  </div>
+
+  <!-- Case card (rendered by JS) -->
+  <div id="caseCard"></div>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════════════ */
+const FLUXOS = {
+  rastreamento_inicio: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">Indivíduo assintomático</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-blue fn-hl">≥ 35 anos <em>ou</em> sobrepeso/obesidade + ≥ 1 fator de risco</div>
+        <div><span class="flux-here">→ Jorge aqui: 34 anos + sobrepeso + HF</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div class="flux-node fn-blue">Solicitar GJ + HbA1c na mesma amostra</div>
+    </div>`,
+
+  rastreamento_normal: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">GJ + HbA1c solicitados</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row" style="gap:20px">
+      <div>
+        <div class="flux-node fn-green fn-hl">Ambos normais</div>
+        <div><span class="flux-here">→ Jorge aqui</span></div>
+      </div>
+      <div class="flux-node fn-amber">Um ou ambos alterados</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓ (normal)</span></div>
+    <div class="flux-row">
+      <div class="flux-node fn-blue">Monitorar · Repetir em 3 anos (ou 1 ano se ≥ 3 fatores de risco)</div>
+    </div>`,
+
+  rastreamento_prediabetes: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">GJ + HbA1c na faixa de pré-diabetes</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-amber fn-hl">GJ 100–125 <em>e/ou</em> HbA1c 5,7–6,4%</div>
+        <div><span class="flux-here">→ Jorge aqui: GJ 115 + HbA1c 5,8%</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row" style="gap:12px">
+      <div class="flux-node fn-blue">MEV intensiva</div>
+      <span style="color:var(--text-3)">+</span>
+      <div class="flux-node fn-blue">Retorno 6–12 meses</div>
+    </div>`,
+
+  tx_inicio: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">DM2 confirmado (HbA1c ≤ 7,5%)</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-blue fn-hl">Metformina + MEV</div>
+        <div><span class="flux-here">→ Jorge aqui</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓ avaliar em 3–6 meses</span></div>
+    <div class="flux-row" style="gap:16px">
+      <div class="flux-node fn-green">Atingiu meta (HbA1c ≤ 7%)</div>
+      <div class="flux-node fn-amber">Não atingiu meta</div>
+    </div>`,
+
+  tx_segunda_linha: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">Metformina otimizada · HbA1c acima da meta</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-amber fn-hl">Adicionar sulfonilureia (gliclazida MR)</div>
+        <div><span class="flux-here">→ Jorge aqui</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓ avaliar em 3–6 meses</span></div>
+    <div class="flux-row" style="gap:12px">
+      <div class="flux-node fn-green">Atingiu meta</div>
+      <div class="flux-node fn-amber">Não atingiu · verificar critérios dapa ou insulina</div>
+    </div>`,
+
+  tx_insulina: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">Dupla terapia sem meta · sem critério para dapa ainda</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-red fn-hl">Insulina NPH basal (às 22h) · 10 U ou 0,1–0,2 U/kg</div>
+        <div><span class="flux-here">→ Jorge aqui</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row" style="gap:10px">
+      <div class="flux-node fn-blue">Titular +2 U a cada 3 dias</div>
+      <div class="flux-node fn-blue">Meta GJ 80–130 mg/dL</div>
+    </div>`,
+
+  tx_dapa: `
+    <div class="flux-row">
+      <div class="flux-node fn-gray">DM2 · 2ª intensificação necessária</div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row">
+      <div>
+        <div class="flux-node fn-blue fn-hl">≥ 40 anos + DCV estabelecida</div>
+        <div><span class="flux-here">→ Jorge aqui: 54a + IAM + angioplastia</span></div>
+      </div>
+    </div>
+    <div class="flux-row"><span class="flux-arrow">↓</span></div>
+    <div class="flux-row" style="gap:10px">
+      <div class="flux-node fn-blue">Dapagliflozina 10 mg/dia</div>
+      <div class="flux-node fn-amber">TFG 38 → eficácia reduzida · mas elegível</div>
+    </div>`
+};
+
+const cases = [
+  {
+    id:0, year:"Ano 1", yearFull:"Ano 1 · 34 anos", age:34, label:"34 anos",
+    title:"Consulta de rotina",
+    subtitle:"Quem deve ser rastreado para DM2?",
+    severity:"normal",
+    vignette:`Jorge, 34 anos, motorista de caminhão, comparece à UBS para consulta de rotina. Não apresenta queixas. IMC 27,2 kg/m². PA 128/82 mmHg. Ao preenchimento do prontuário, refere que o pai tem diabetes "aquele de velho" há 10 anos. Nega sedentarismo: <em>"eu ando pelo pátio da empresa pelo menos uns 5 minutos por dia, doutor."</em> Nega tabagismo, mas admite que bebe cerveja "socialmente" todo fim de semana — e toda quarta.`,
+    bigQ:"Jorge deve ser rastreado para DM2 agora, mesmo tendo apenas 34 anos e sem sintomas?",
+    exams:null,
+    answerBlocks:[
+      {label:"Resposta",content:`<p>Sim. O PCDT 2026 recomenda rastreamento universal a partir dos <strong>35 anos</strong>, mas Jorge tem 34 — portanto o critério etário ainda não se aplica. Porém, o rastreamento é indicado em qualquer idade quando há sobrepeso ou obesidade <strong>mais</strong> pelo menos um fator de risco adicional.</p><p style="margin-top:8px">Jorge tem <strong>IMC 27,2 kg/m² (sobrepeso)</strong> e <strong>história familiar de DM2 em parente de primeiro grau</strong>. Isso é suficiente para indicar rastreamento <strong>agora</strong>, independentemente da idade.</p>`},
+      {label:"Fatores de risco que indicam rastreamento (Quadro 1 — PCDT 2026)",content:`<div style="border:1px solid var(--border-2);border-radius:var(--r-md);overflow:hidden;margin-top:6px"><div style="background:var(--sand);padding:7px 14px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.02em;text-transform:uppercase">Fatores de risco — indivíduos assintomáticos e não gestantes</div><div style="padding:10px 14px 10px 14px;background:var(--cream)"><ul style="margin:0;padding-left:1.2rem;line-height:2"><li>Parente de primeiro grau com diabetes</li><li>Histórico de doença cardiovascular</li><li>Estilo de vida sedentário</li><li>Dislipidemia (HDL-colesterol &lt; 35 mg/dL ou triglicerídeos &gt; 250 mg/dL)</li><li>Síndrome do Ovário Policístico</li><li>Acantose <em>nigricans</em></li><li>Doença hepática esteatótica</li><li>Hipertensão Arterial Sistêmica</li><li>Pré-diabetes em exame prévio</li><li>Histórico de diabete melito gestacional ou parto de bebê com peso &gt; 4 kg</li><li>Terapia antipsicótica</li><li>Apneia obstrutiva do sono</li><li>Privação crônica do sono</li><li>Ocupação laboral em turno noturno</li><li><em>Finnish Diabetes Risk Score</em> (FINDRISC) alto ou muito alto</li></ul></div><div style="background:var(--cream-dark);padding:6px 14px;font-size:11px;color:var(--text-3);border-top:1px solid var(--border)">Fonte: Baseado em Blonde et al. (2022), Linhas de Cuidado DM2 no adulto (2020) e SBD (2024).</div></div>`},
+      {label:"Fatores de risco presentes em Jorge",tags:[{t:"Sobrepeso (IMC 27,2)",c:"amber"},{t:"HF de DM2 (pai)",c:"amber"},{t:"Possível sedentarismo",c:"amber"},{t:"PA limítrofe 128/82",c:"amber"}]},
+      {label:"FINDRISC — Finnish Diabetes Risk Score",content:`<p>O FINDRISC é uma ferramenta de triagem para risco de DM2. Atribui uma pontuação máxima de <strong>26 pontos</strong>, distribuída com base em fatores como idade, IMC, circunferência abdominal, hábitos alimentares, nível de atividade física, histórico familiar e pressão arterial. Os indivíduos são classificados em cinco faixas de risco:</p><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span class="tag tag-green">&lt; 7 pts · Baixo</span><span class="tag tag-green">7–11 pts · Levemente elevado</span><span class="tag tag-amber">12–14 pts · Moderado</span><span class="tag tag-red">15–20 pts · Alto</span><span class="tag tag-red">&gt; 20 pts · Muito alto</span></div><p style="margin-top:10px">O escore FINDRISC pode ser encontrado na <strong>Linha de Cuidado do Diabetes Mellitus tipo 2 (DM2) no adulto</strong> (TelessaúdeRS-UFRGS/Ministério da Saúde). Escore alto ou muito alto já é, por si só, fator de risco independente que indica rastreamento laboratorial.</p>`},
+      {label:"O que solicitar (PCDT 2026)",content:`<p>Solicitar glicemia de jejum e HbA1c na mesma amostra. Estratégia de maior praticidade e custo-efetividade. Glicemia de jejum disponível em toda UBS; <strong>HbA1c disponível pelo SUS, mas sujeita à capacidade laboratorial local</strong> — verificar disponibilidade antes de solicitar.</p>`}
+    ],
+    fluxo:"rastreamento_inicio",
+    sus:"Glicemia de jejum disponível em toda UBS (CBAF). HbA1c disponível pelo SUS, mas a oferta pode variar conforme a capacidade laboratorial local — verificar disponibilidade na realidade do município.",
+    sbd:"Idem ao PCDT — convergência total neste ponto. A SBD 2024 já recomendava rastreamento universal ≥ 35 anos, alinhado com o PCDT 2026.",
+    sbdDiverge:false,
+    footerNote:null
+  },
+  {
+    id:1, year:"Resultado", yearFull:"Resultado · 34 anos", age:34, label:"34 anos",
+    title:"Resultados do rastreamento",
+    subtitle:"Os exames chegaram. O que revelam?",
+    severity:"normal",
+    vignette:`Os exames retornam. Jorge recebe os resultados pelo WhatsApp da UBS e comemora antes mesmo de abri-los. <em>"Tá ótimo então, não precisa mudar nada, né doutor?"</em> — pergunta ele, já de pé, pegando o celular.`,
+    bigQ:"Os exames são normais. O que fazer agora?",
+    exams:[
+      {label:"Glicemia de jejum",value:"94 mg/dL",status:"ok",ref:"Normal (< 100 mg/dL)"},
+      {label:"HbA1c",value:"5,4%",status:"ok",ref:"Normal (< 5,7%)"}
+    ],
+    answerBlocks:[
+      {label:"Interpretação",content:`<p>Exames normais — sem diagnóstico de pré-diabetes ou diabetes. Porém, Jorge mantém fatores de risco (sobrepeso, HF, sedentarismo, PA limítrofe). <strong>Não é o momento de comemorar e sumir.</strong></p>`},
+      {label:"Periodicidade do rastreamento (PCDT 2026)",content:`<p>Com glicemia de jejum normal, o próximo rastreamento deve ser feito em <strong>3 anos</strong>. Porém, se Jorge acumular ≥ 3 fatores de risco sem alteração laboratorial, a reavaliação deve ser <strong>anual</strong>. Jorge já tem pelo menos 2–3 fatores — portanto: <strong>reavaliação em 1 ano</strong>.</p>`},
+      {label:"Orientações obrigatórias (MEV)",content:`<ul><li>Redução de peso (mesmo 3–7% do peso corporal já tem impacto metabólico)</li><li>Alimentação: reduzir ultraprocessados, carboidratos refinados, bebidas açucaradas</li><li>Atividade física: mínimo 150 min/semana de caminhada moderada (≠ 5 min no pátio)</li><li>Cessar tabagismo (se aplicável) e reduzir álcool</li></ul>`}
+    ],
+    fluxo:"rastreamento_normal",
+    sus:"Orientação nutricional e de atividade física pela equipe de saúde. NASF/equipe multiprofissional quando disponível. Retorno anual para reavaliação.",
+    sbd:"Idem — MEV é base permanente. A SBD reforça a importância do FINDRISC para estratificação contínua.",
+    sbdDiverge:false,
+    footerNote:`<em>Jorge sai da consulta determinado a mudar de vida. Compra tênis novo. O tênis nunca é usado.</em>`
+  },
+  {
+    id:2, year:"1 ano", yearFull:"+1 ano · 35 anos", age:35, label:"35 anos",
+    title:"Retorno anual",
+    subtitle:"Novos exames chegaram. Tudo bem ainda?",
+    severity:"warning",
+    vignette:`Jorge retorna com 35 anos. Sem queixas. O tênis ainda está na caixa. IMC agora 28,8 kg/m². PA 132/84 mmHg. Refere que tentou a dieta durante "uns 3 dias em fevereiro". <em>"Mas doutor, minha mulher não colabora com a comida, né. Ela faz o arroz que eu gosto."</em> Novos exames solicitados.`,
+    bigQ:"Glicemia de jejum 115 mg/dL e HbA1c 5,8%. Qual é o diagnóstico e conduta?",
+    exams:[
+      {label:"Glicemia de jejum",value:"115 mg/dL",status:"warn",ref:"Pré-diabetes: 100–125 mg/dL"},
+      {label:"HbA1c",value:"5,8%",status:"warn",ref:"Pré-diabetes: 5,7–6,4%"}
+    ],
+    answerBlocks:[
+      {label:"Diagnóstico",content:`<p><strong>Pré-diabetes</strong> — confirmado por dois critérios concordantes na mesma amostra (GJ 115 mg/dL + HbA1c 5,8%). Não requer segunda coleta para confirmação neste cenário, pois dois testes diferentes, na mesma amostra, estão acima dos limiares.</p>`},
+      {label:"O que isso significa para Jorge",content:`<p>Risco substancialmente aumentado de progressão para DM2. Porém: <strong>pré-diabetes é reversível com MEV efetiva</strong>. O estudo DiRECT demonstrou que perda ≥ 10 kg mantida levou 64% dos pacientes a remissão do DM2 — a intervenção no pré-diabetes tem potencial preventivo ainda maior.</p>`},
+      {label:"Conduta (PCDT 2026 + SBD)",content:`<ul><li>Reforço intensivo de MEV: metformina <strong>não</strong> está indicada pelo PCDT para pré-diabetes isolado</li><li>Retorno em <strong>6 a 12 meses</strong> com novos exames</li><li>Calcular FINDRISC — provável "alto" agora</li><li>Monitorar PA, dislipidemia, peso em cada consulta</li></ul>`}
+    ],
+    fluxo:"rastreamento_prediabetes",
+    sus:"MEV estruturada pela equipe multiprofissional. Sem medicação. Retorno em 6–12 meses.",
+    sbd:"Convergência com PCDT. A SBD menciona metformina como opção em pré-diabetes com IMC ≥ 35 kg/m² ou progressão rápida — Jorge não atingiu esse limiar.",
+    sbdDiverge:false,
+    footerNote:`<em>Jorge sai da consulta preocupado. Dura 1 semana. Na segunda semana, voltou para o arroz da mulher.</em>`
+  },
+  {
+    id:3, year:"6 meses", yearFull:"+6 meses · 35 anos", age:35, label:"35 anos (6 meses)",
+    title:"Reavaliação do pré-diabetes",
+    subtitle:"A progressão foi mais rápida do que o esperado?",
+    severity:"bad",
+    vignette:`Jorge retorna em 6 meses, sem queixas. Nega mudanças na alimentação. <em>"Eu tentei a academia, mas fiquei 2 semanas e o professor me chateou."</em> IMC 29,4 kg/m². PA 136/86 mmHg. Novos exames: GJ 128 mg/dL e HbA1c 6,6%.`,
+    bigQ:"GJ 128 mg/dL e HbA1c 6,6%. Como confirmar o diagnóstico e qual é a conduta inicial?",
+    exams:[
+      {label:"Glicemia de jejum",value:"128 mg/dL",status:"bad",ref:"DM2: ≥ 126 mg/dL"},
+      {label:"HbA1c",value:"6,6%",status:"bad",ref:"DM2: ≥ 6,5%"}
+    ],
+    answerBlocks:[
+      {label:"Diagnóstico — DM2 confirmado",content:`<p>Jorge tem <strong>dois critérios diagnósticos na mesma amostra</strong> (GJ ≥ 126 e HbA1c ≥ 6,5%), o que confirma o diagnóstico sem necessidade de segunda coleta — mesmo sendo assintomático. Este é o cenário descrito no PCDT 2026 para diagnóstico em assintomáticos com dois testes diferentes positivos na mesma amostra.</p><p style="margin-top:8px"><strong>Atenção:</strong> em paciente <em>sintomático</em> (poliúria, polidipsia, perda ponderal não intencional), uma única glicemia plasmática aleatória <strong>≥ 200 mg/dL</strong> já é suficiente para confirmar o diagnóstico de DM2, sem necessidade de exame adicional.</p>`},
+      {label:"Critérios laboratoriais diagnósticos (Quadro 4 — SBD 2024)",content:`<div style="border:1px solid var(--border-2);border-radius:var(--r-md);overflow:hidden;margin-top:6px"><div style="background:var(--sand);padding:7px 14px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.02em;text-transform:uppercase">Critérios diagnósticos para DM2 — adultos ≥ 18 anos</div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="background:var(--cream-dark)"><th style="padding:7px 12px;text-align:left;border-bottom:1px solid var(--border-2);color:var(--text-2);font-weight:600">Critério</th><th style="padding:7px 12px;text-align:center;border-bottom:1px solid var(--border-2);color:var(--ok);font-weight:600">Normal</th><th style="padding:7px 12px;text-align:center;border-bottom:1px solid var(--border-2);color:var(--warn);font-weight:600">Pré-diabetes</th><th style="padding:7px 12px;text-align:center;border-bottom:1px solid var(--border-2);color:var(--bad);font-weight:600">DM2</th></tr></thead><tbody><tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 12px;color:var(--text)">Glicemia plasmática de jejum (mg/dL)*</td><td style="padding:7px 12px;text-align:center;color:var(--ok);font-weight:600">&lt; 100</td><td style="padding:7px 12px;text-align:center;color:var(--warn);font-weight:600">100–125</td><td style="padding:7px 12px;text-align:center;color:var(--bad);font-weight:600">≥ 126</td></tr><tr style="border-bottom:1px solid var(--border);background:var(--cream)"><td style="padding:7px 12px;color:var(--text)">Glicemia plasmática aleatória (mg/dL) + sintomas</td><td style="padding:7px 12px;text-align:center;color:var(--text-3)">—</td><td style="padding:7px 12px;text-align:center;color:var(--text-3)">—</td><td style="padding:7px 12px;text-align:center;color:var(--bad);font-weight:600">≥ 200</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 12px;color:var(--text)">Glicemia de 1 hora no TTGO (mg/dL)**</td><td style="padding:7px 12px;text-align:center;color:var(--ok);font-weight:600">&lt; 155</td><td style="padding:7px 12px;text-align:center;color:var(--warn);font-weight:600">155–208</td><td style="padding:7px 12px;text-align:center;color:var(--bad);font-weight:600">≥ 209</td></tr><tr style="border-bottom:1px solid var(--border);background:var(--cream)"><td style="padding:7px 12px;color:var(--text)">Glicemia de 2 horas no TTGO (mg/dL)**</td><td style="padding:7px 12px;text-align:center;color:var(--ok);font-weight:600">&lt; 140</td><td style="padding:7px 12px;text-align:center;color:var(--warn);font-weight:600">140–199</td><td style="padding:7px 12px;text-align:center;color:var(--bad);font-weight:600">≥ 200</td></tr><tr><td style="padding:7px 12px;color:var(--text)">HbA1c (%)</td><td style="padding:7px 12px;text-align:center;color:var(--ok);font-weight:600">&lt; 5,7</td><td style="padding:7px 12px;text-align:center;color:var(--warn);font-weight:600">5,7–6,4</td><td style="padding:7px 12px;text-align:center;color:var(--bad);font-weight:600">≥ 6,5</td></tr></tbody></table><div style="background:var(--cream-dark);padding:7px 12px;font-size:11px;color:var(--text-3);border-top:1px solid var(--border);line-height:1.6"><strong>Legenda:</strong> TTGO: teste de tolerância à glicose oral. *Jejum = cessação de ingesta calórica de 8–12 horas. **Carga oral equivalente a 75 g de glicose anidra diluída em água. <strong>Nota:</strong> o TTGO-1h (glicemia de 1 hora) é uma novidade introduzida pela SBD 2024, ainda não incorporada ao PCDT 2026.<br>Fonte: Elaboração própria com base nas recomendações da SBD 2024.</div></div>`},
+      {label:"Sinais e sintomas associados ao DM2 (Quadro 2 — PCDT 2026)",content:`<div style="border:1px solid var(--border-2);border-radius:var(--r-md);overflow:hidden;margin-top:6px"><div style="background:var(--sand);padding:7px 14px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.02em;text-transform:uppercase">Sinais, sintomas e condições clínicas para suspeita de DM2</div><div style="padding:10px 14px;background:var(--cream)"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-2);margin-bottom:4px">Sinais e sintomas clássicos</div><ul style="margin:0 0 10px 0;padding-left:1.2rem;line-height:1.9"><li>Poliúria</li><li>Polidipsia</li><li>Perda ponderal não intencional</li><li>Polifagia</li><li>Noctúria</li></ul><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-2);margin-bottom:4px">Sintomas e condições menos específicos</div><ul style="margin:0;padding-left:1.2rem;line-height:1.9"><li>Fadiga, fraqueza e letargia</li><li>Visão turva</li><li>Prurido vulvar ou cutâneo, balanopostite</li><li>Doença renal crônica (albuminúria, perda de função renal)</li><li>Neuropatia (parestesias, dor nos membros inferiores, formigamento, câimbras)</li><li>Retinopatia</li><li>Catarata</li><li>Doença aterosclerótica (IAM, AVC, doença vascular periférica)</li><li>Infecções de repetição</li></ul></div><div style="background:var(--cream-dark);padding:6px 14px;font-size:11px;color:var(--text-3);border-top:1px solid var(--border)">Fonte: Adaptado de Duncan et al., 2022.</div></div>`},
+      {label:"Raciocínio: DM2 ou DM1 tardio/LADA?",content:`<p>Jorge tem 35 anos, sobrepeso, progressão insidiosa, sem sintomas clássicos — perfil compatível com DM2. Não há sinais de alerta para DM1 (instalação abrupta, emagrecimento, cetose). Se houvesse dúvida, solicitar anti-GAD e peptídeo C.</p>`},
+      {label:"Conduta inicial (PCDT 2026 — Figura 2)",content:`<p>HbA1c = 6,6%, ou seja, ≤ 7,5% ao diagnóstico. Portanto: <strong>não há critério para terapia combinada inicial</strong>.</p><p style="margin-top:8px">Iniciar com <strong>MEV + metformina</strong>:</p><ul style="margin-top:4px"><li>Metformina 500 mg 1x/dia durante as refeições por 5–7 dias</li><li>Aumentar para 500 mg 2x/dia se tolerado</li><li>Meta: titular até 850 mg 3x/dia (dose máxima = 2.550 mg/dia)</li><li>Solicitar exames basais: Cr + TFG, lipidograma, albuminúria, fundoscopia</li><li>Retorno em 3–6 meses com HbA1c</li></ul>`},
+      {label:"Exames de acompanhamento basais (PCDT 2026, Quadro 16)",content:`<ul><li>Creatinina sérica + cálculo de TFG</li><li>Albuminúria (relação albumina/creatinina)</li><li>Lipidograma (CT, TG, HDL, LDL)</li><li>Fundoscopia</li><li>Avaliação do pé diabético</li><li>Estratificação de risco cardiovascular (calculadora HEARTS — Jorge com 35 anos, fora da faixa 40–74 ainda)</li></ul>`}
+    ],
+    fluxo:"tx_inicio",
+    sus:"Metformina disponível no CBAF (500 e 850 mg) e gratuitamente na Farmácia Popular. Exames basais disponíveis pelo SUS.",
+    sbd:"Convergência: metformina como primeira linha. A SBD 2025 reforça que MEV não é fase inicial — é base permanente do tratamento.",
+    sbdDiverge:false,
+    footerNote:`<em>Jorge aceita bem o diagnóstico: "Ué, meu pai tem isso. Ele tá ótimo." O pai de Jorge usa 3 medicamentos, tem perda de sensibilidade nos pés e está com a vista embaçada. Jorge não sabe disso.</em>`
+  },
+  {
+    id:4, year:"+1 ano", yearFull:"+1 ano · 36 anos", age:36, label:"36 anos",
+    title:"Seguimento — falha da metformina",
+    subtitle:"A meta foi atingida? O que vem a seguir?",
+    severity:"bad",
+    vignette:`Jorge usa metformina 850 mg 2x/dia (não conseguiu tomar 3x). HbA1c após 1 ano: 7,8%. GJ: 156 mg/dL. PA 138/88 mmHg. TFG: 88 mL/min/1,73m². Albuminúria: 22 mg/g (normal). Fundoscopia: sem alterações. <em>"Doutor, a metformina me deu diarreia duas vezes no começo, aí eu tomava na hora errada pra não ficar incomodado. Às vezes esquecia também."</em>`,
+    bigQ:"HbA1c 7,8% com metformina em dose submáxima. Qual é a próxima etapa?",
+    exams:[
+      {label:"HbA1c",value:"7,8%",status:"bad",ref:"Meta: ≤ 7,0%"},
+      {label:"GJ",value:"156 mg/dL",status:"bad",ref:"Meta: 80–130 mg/dL"},
+      {label:"TFG",value:"88 mL/min/1,73m²",status:"ok",ref:"Normal"},
+      {label:"Albuminúria",value:"22 mg/g",status:"ok",ref:"Normal (< 30 mg/g)"}
+    ],
+    answerBlocks:[
+      {label:"Avaliação da adesão primeiro",content:`<p>Antes de intensificar, avaliar adesão e técnica. Jorge está em dose submáxima (1.700 mg/dia vs. 2.550 mg/dia possíveis). <strong>Tentar otimizar a metformina</strong> — orientar a tomar durante ou imediatamente após a refeição. Se necessário, considerar formulação MR (liberação prolongada), disponível apenas na Farmácia Popular (XR 500 mg).</p><p style="margin-top:8px">Se HbA1c permanecer acima da meta com dose otimizada: <strong>adicionar sulfonilureia</strong>.</p>`},
+      {label:"Escolha da sulfonilureia (PCDT 2026)",content:`<p><strong>Gliclazida MR</strong> é a sulfonilureia preferencial. Jorge tem 36 anos — gliclazida 30 mg pela manhã, titular até máximo de 120 mg/dia conforme resposta.</p><p style="margin-top:8px"><strong>Glibenclamida está contraindicada</strong> para ≥ 60 anos — Jorge ainda não atingiu essa faixa, mas gliclazida MR é a escolha de partida por menor risco de hipoglicemia.</p>`},
+      {label:"Mecanismo das sulfonilureias",content:`<p>Secretagogos de insulina — estimulam liberação de insulina pelas células beta <strong>independentemente da glicemia</strong>. Daí o risco de hipoglicemia, especialmente em jejum prolongado, omissão de refeição ou exercício. HbA1c reduz 1–1,5%.</p>`}
+    ],
+    fluxo:"tx_segunda_linha",
+    sus:"Gliclazida 30 mg e 60 mg MR disponíveis no CBAF. Glibenclamida 5 mg também disponível (mas não preferencial).",
+    sbd:"Convergência: gliclazida MR como SU preferencial. A SBD já indicaria iSGLT2 (dapagliflozina) ou iDPP-4 como alternativa de segunda linha se Jorge tivesse risco CV alto — ele ainda não tem critérios.",
+    sbdDiverge:false,
+    footerNote:null
+  },
+  {
+    id:5, year:"+2 anos", yearFull:"+2 anos · 38 anos", age:38, label:"38 anos",
+    title:"Urgência noturna — mal-estar intenso",
+    subtitle:"Uma intercorrência aguda grave. O que está acontecendo?",
+    severity:"danger",
+    vignette:`Jorge comparece ao PA às 2h da manhã trazido pela esposa. Relata 3 dias de vômitos, dor abdominal e mal-estar. Confuso. Respiração de Kussmaul. Hálito cetônico. Glicemia capilar: "High" no glicosímetro. A esposa refere que ele parou de tomar os remédios há 2 semanas <em>"porque acabou e não foi buscar"</em>, e que o marido ficou gripado e não comeu nada em 48h.`,
+    bigQ:"Qual é a hipótese diagnóstica? Como conduzir no PA?",
+    exams:[
+      {label:"Glicemia capilar",value:"> 500 mg/dL (Hi)",status:"bad",ref:"—"},
+      {label:"Cetonúria",value:"Positiva (3+)",status:"bad",ref:"—"},
+      {label:"pH venoso",value:"7,18",status:"bad",ref:"Normal: 7,35–7,45"},
+      {label:"Bicarbonato",value:"11 mEq/L",status:"bad",ref:"Normal: 22–26 mEq/L"}
+    ],
+    answerBlocks:[
+      {label:"Diagnóstico: cetoacidose diabética (CAD)",content:`<p>Tríade: <strong>hiperglicemia + cetonemia/cetonúria + acidose metabólica</strong>. CAD pode ocorrer em DM2 sob estresse agudo (infecção, omissão de medicações, doença intercorrente) especialmente com depleção de insulina basal. A CAD em DM2 é menos comum que no DM1, mas não rara. Jorge: omissão de medicações + estresse infeccioso = CAD.</p>`},
+      {label:"Critérios para encaminhar para urgência/emergência (PCDT 2026)",content:`<p>Suspeita de CAD ou síndrome hiperosmolar hiperglicêmica não cetótica = critério absoluto de encaminhamento para urgência/emergência. <strong>Não manejar ambulatorialmente.</strong></p>`},
+      {label:"Princípios do manejo da CAD (PA/hospital)",content:`<ul><li>Hidratação vigorosa com SF 0,9% (1L na 1ª hora, depois conforme déficit)</li><li>Insulinoterapia IV contínua (insulina regular 0,1 U/kg/h) — <strong>não usar análogos SC na CAD estabelecida</strong></li><li>Reposição de potássio (K+ cai com insulina — monitorar)</li><li>Investigar e tratar fator precipitante</li><li>Transição para SC quando: glicemia < 200 mg/dL + pH > 7,3 + bicarbonato > 18</li></ul>`},
+      {label:"Pós-CAD — o que mudar no manejo ambulatorial",content:`<p>Após alta: avaliar necessidade de insulinização. Episódio de CAD em DM2 indica falência secretória significativa. Se Jorge mantiver controle inadequado com ADOs, considerar insulinização precoce. Reforçar que <strong>não suspender medicações</strong> nunca, mesmo sem comer — especialmente em doenças intercorrentes.</p>`}
+    ],
+    fluxo:null,
+    sus:"Manejo hospitalar coberto pelo SUS. Insulina regular IV disponível nos hospitais da rede. Após alta: manter ADOs e reavaliar insulinização.",
+    sbd:"Manejo da CAD é padronizado internacionalmente — sem divergência significativa. A SBD reforça protocolo de sick day rules para evitar precipitação.",
+    sbdDiverge:false,
+    footerNote:`<em>Jorge fica 4 dias internado. Na alta, promete que nunca mais vai faltar com os remédios. Essa promessa dura até o próximo jogo do Grêmio.</em>`
+  },
+  {
+    id:6, year:"+4 anos", yearFull:"+4 anos · 42 anos", age:42, label:"42 anos",
+    title:"Falha da dupla terapia",
+    subtitle:"Chegou a hora da dapagliflozina?",
+    severity:"bad",
+    vignette:`Jorge, agora 42 anos. Metformina 850 mg 3x/dia + gliclazida 60 mg MR/dia. HbA1c: 8,4%. GJ: 178 mg/dL. PA: 144/90 mmHg. Desenvolveu hipertensão no último ano, em uso de losartana 50 mg. LDL: 142 mg/dL. Sem DCV estabelecida. TFG: 72 mL/min. Albuminúria: 28 mg/g. <em>"Doutor, eu tô tomando todos os remédios. Pelo menos 4 dias na semana."</em>`,
+    bigQ:"Falha da dupla terapia (metformina + gliclazida). Jorge é elegível para dapagliflozina pelo SUS?",
+    exams:[
+      {label:"HbA1c",value:"8,4%",status:"bad",ref:"Meta: ≤ 7,0%"},
+      {label:"TFG",value:"72 mL/min/1,73m²",status:"ok",ref:"Normal para uso"},
+      {label:"Albuminúria",value:"28 mg/g",status:"warn",ref:"Limítrofe (< 30 normal)"},
+      {label:"LDL",value:"142 mg/dL",status:"bad",ref:"Dislipidemia"}
+    ],
+    answerBlocks:[
+      {label:"Avaliando elegibilidade para dapagliflozina (PCDT 2026)",content:`<p>Critérios necessários: DM2 + <strong>segunda intensificação</strong> + um dos seguintes:</p><ul style="margin-top:4px"><li>≥ 40 anos + DCV estabelecida (IAM, revascularização, angina, AVC, IC FE < 40%) — <strong>Jorge não tem DCV</strong></li><li>≥ 55 anos (homem) ou ≥ 60 anos (mulher) + risco CV alto (HAS, dislipidemia ou tabagismo) — <strong>Jorge tem 42 anos — ainda não elegível por este critério</strong></li></ul><p style="margin-top:8px"><strong>Jorge ainda não é elegível para dapagliflozina pelo PCDT 2026.</strong> Próxima etapa: <strong>insulinoterapia</strong>.</p>`},
+      {label:"Início da insulinoterapia (PCDT 2026 — Figura 3)",content:`<p>Iniciar <strong>insulina NPH SC às 22h</strong>, 10 U ou 0,1–0,2 U/kg (Jorge ~90 kg: 9–18 U → iniciar com 10 U).</p><ul style="margin-top:4px"><li>Manter metformina + gliclazida (manter SU com insulina basal)</li><li>Titulação: aumentar 2 U a cada 3 dias até GJ 80–130 mg/dL</li><li>Se hipoglicemia noturna: reduzir 2–4 U</li><li>Orientar automonitoramento: tiras + lancetas disponíveis no CBAF para usuários de insulina</li></ul>`},
+      {label:"Manejo da hipertensão e dislipidemia",content:`<p>Jorge com DM2 + HAS + dislipidemia. DM2 já confere alto risco cardiovascular na calculadora HEARTS. Otimizar losartana (e considerar IECA se ainda não em uso). Iniciar estatina (sinvastatina disponível no SUS). LDL-alvo < 70 mg/dL para alto risco.</p>`}
+    ],
+    fluxo:"tx_insulina",
+    sus:"Insulina NPH disponível no CBAF. Automonitoramento (tiras, lancetas, glicosímetro em comodato) para usuários de insulina. Dapagliflozina ainda não indicada pelo PCDT.",
+    sbd:`A SBD 2025 indicaria dapagliflozina (ou outro iSGLT2) como segunda linha para qualquer paciente com risco CV alto/muito alto, independentemente da HbA1c e sem exigir combinação prévia estabelecida. Jorge com DM2 + HAS + dislipidemia já é "alto risco" pela SBD — receberia dapagliflozina agora. Pelo PCDT, terá que esperar até os 55 anos ou desenvolver DCV.`,
+    sbdDiverge:true,
+    footerNote:`<em>Jorge retorna para buscar as seringas. Esquece de buscar 3 vezes. Na quarta vez, a ACS deixa na casa dele.</em>`
+  },
+  {
+    id:7, year:"+8 anos", yearFull:"+8 anos · 50 anos", age:50, label:"50 anos",
+    title:"Queixa nova — pés que ardem",
+    subtitle:"15 anos de DM2. O que o exame físico revela?",
+    severity:"danger",
+    vignette:`50 anos. 15 anos de DM2. Usa metformina 850 mg 3x/dia + gliclazida 60 mg MR + NPH 28 U/noite. HbA1c crônica entre 8,5–9,2% nos últimos anos. Procura a UBS por "formigamento e queimação nos pés, pior à noite". Refere que perdeu a sensação de calor no pé direito. Ao exame: monofilamento 10g negativo em 4 de 10 pontos plantares. Diapasão 128 Hz ausente nos maléolos. <em>"Achei que fosse cansaço do trabalho, doutor."</em>`,
+    bigQ:"Diagnóstico e conduta na polineuropatia diabética periférica",
+    exams:[
+      {label:"HbA1c",value:"9,1%",status:"bad",ref:"Meta: ≤ 7,0%"},
+      {label:"Monofilamento 10g",value:"4/10 pontos perdidos",status:"bad",ref:"Normal: 0 perdidos"},
+      {label:"TFG",value:"58 mL/min/1,73m²",status:"warn",ref:"DRC G3a"},
+      {label:"Albuminúria",value:"68 mg/g",status:"bad",ref:"Microalbuminúria"}
+    ],
+    answerBlocks:[
+      {label:"Diagnóstico: polineuropatia diabética periférica (PNP-DM)",content:`<p>Diagnóstico clínico baseado em sintomas (queimação, parestesias, dor nociceptiva) + exame físico (perda de sensibilidade ao monofilamento e diapasão). É a complicação neurológica mais comum do DM2 — presente em até 50% dos pacientes com 10 anos de doença mal controlada.</p><p style="margin-top:8px">Mecanismo: hiperglicemia crônica → acúmulo de sorbitol, estresse oxidativo, inflamação → lesão axonal e desmielinização dos nervos periféricos.</p>`},
+      {label:"Implicação do pé diabético",content:`<p>Perda de sensibilidade protetora = risco de úlceras, infecções e amputação. Avaliação anual do pé é obrigatória (PCDT 2026, Quadro 16). Classificar conforme risco de ulceração. Orientar: inspeção diária dos pés, calçado adequado, não andar descalço, cuidado com calosidades.</p>`},
+      {label:"Tratamento da dor neuropática (PCDT 2026 + SBD)",content:`<ul><li>Otimizar controle glicêmico — base de tudo</li><li>Primeira linha: <strong>amitriptilina</strong> (disponível no SUS) ou gabapentina/pregabalina</li><li>Duloxetina: indicada pela SBD como primeira linha — <strong>não disponível no CBAF</strong></li><li>Capsaicina tópica: opção adjuvante</li><li>Encaminhar para avaliação de retinopatia (fundoscopia) — complicações microvasculares costumam surgir juntas</li></ul>`},
+      {label:"Também encontrado: DRC G3a + microalbuminúria",content:`<p>TFG 58 + albuminúria 68 mg/g = DRC em estágio inicial. Ajustar metformina: permitida até TFG 45 sem restrição; entre 30–44: máximo 1 g/dia. Encaminhar para nefrologista se proteinúria franca ou queda rápida de TFG.</p>`}
+    ],
+    fluxo:null,
+    sus:"Amitriptilina disponível no SUS. Avaliação do pé e fundoscopia anual obrigatórias. Neuropatia grave: encaminhar ao especialista.",
+    sbd:"A SBD indica duloxetina como primeira linha para dor neuropática — não disponível no CBAF. A SBD também indicaria duloxetina para prevenção de progressão renal.",
+    sbdDiverge:true,
+    footerNote:`<em>Jorge sai da consulta preocupado com os pés pela primeira vez. Compra um chinelo de dedo. O médico chora por dentro.</em>`
+  },
+  {
+    id:8, year:"+1 ano", yearFull:"+1 ano · 51 anos", age:51, label:"51 anos",
+    title:"Pé enfaixado há 2 semanas",
+    subtitle:"Uma ferida sem dor — o que isso significa?",
+    severity:"danger",
+    vignette:`Jorge comparece à UBS com o pé esquerdo enfaixado. Refere que "machucou" ao bater em uma cadeira há 2 semanas. <em>"Não dói, por isso achei que ia sarar sozinho."</em> Ao exame: úlcera plantar em 1º pododáctilo, 2 × 1,5 cm, com tecido necrótico no fundo, bordas hiperemiadas, secreção purulenta moderada. Temperatura local aumentada. Sem crepitação. Glicemia capilar: 288 mg/dL.`,
+    bigQ:"Classificação, conduta e critérios de internação nessa úlcera de pé diabético",
+    exams:[
+      {label:"Wagner",value:"Grau 2",status:"bad",ref:"Úlcera profunda sem abscesso"},
+      {label:"Glicemia capilar",value:"288 mg/dL",status:"bad",ref:"—"},
+      {label:"Leucócitos",value:"14.200/mm³",status:"bad",ref:"Normal < 10.000"},
+      {label:"PCR",value:"48 mg/L",status:"bad",ref:"Normal < 5 mg/L"}
+    ],
+    answerBlocks:[
+      {label:"Classificação Wagner",content:`<ul><li>Grau 0: pé em risco, sem úlcera</li><li>Grau 1: úlcera superficial, sem infecção</li><li><strong>Grau 2: úlcera profunda, até tendão/cápsula, com infecção superficial</strong> — Jorge</li><li>Grau 3: abscesso profundo, osteomielite</li><li>Grau 4: gangrena parcial</li><li>Grau 5: gangrena extensa</li></ul>`},
+      {label:"Conduta imediata",content:`<ul><li>Internação hospitalar — Wagner 2 com sinais de infecção sistêmica (leucocitose + PCR elevado)</li><li>Antibioticoterapia IV (amoxicilina/clavulanato ou clindamicina + ciprofloxacino)</li><li>Desbridamento cirúrgico + avaliação de osteomielite (RX + RM se disponível)</li><li>Controle glicêmico intensivo durante internação</li><li>Avaliação vascular: pulsos pediais, ITB — se isquemia associada, encaminhar para cirurgia vascular</li></ul>`},
+      {label:"Prevenção e alta hospitalar",content:`<p>Alta com curativos diários, descarga de peso (palmilha, órtese ou gesso de contato total), antibioticoterapia oral, controle glicêmico rigoroso e retorno em 48–72h. Encaminhamento a equipe multiprofissional especializada em pé diabético quando disponível.</p>`}
+    ],
+    fluxo:null,
+    sus:"Internação hospitalar disponível. Desbridamento cirúrgico coberto. Alta com curativos na UBS. Não há equipe especializada em pé diabético em todos os municípios.",
+    sbd:"Protocolo de pé diabético bem definido na SBD — sem divergência significativa na conduta. A diferença está na disponibilidade de equipes multidisciplinares de pé diabético, ausentes na maioria dos municípios de pequeno porte.",
+    sbdDiverge:false,
+    footerNote:`<em>Jorge fica 9 dias internado. O 1º pododáctilo esquerdo é amputado. Na alta, ganha instrução sobre cuidados com os pés. Desta vez, Jorge presta atenção.</em>`
+  },
+  {
+    id:9, year:"+3 anos", yearFull:"+3 anos · 54 anos", age:54, label:"54 anos",
+    title:"Pós-IAM, DRC avançada",
+    subtitle:"O esquema precisa ser reorganizado. Finalmente elegível para dapa?",
+    severity:"danger",
+    vignette:`3 anos após a amputação. Jorge, 54 anos. HbA1c 8,8%. TFG: 38 mL/min/1,73m². Albuminúria: 320 mg/g (macroalbuminúria). DCV estabelecida: internação por IAM há 2 meses, com angioplastia do ramo diagonal. PA 148/92 mmHg. Em uso de metformina, gliclazida, NPH 34 U/noite, losartana, sinvastatina. <em>"Doutor, sobrevivi ao infarto. Agora vou cuidar de mim."</em>`,
+    bigQ:"Como reorganizar o esquema terapêutico agora? Jorge finalmente é elegível para dapagliflozina?",
+    exams:[
+      {label:"TFG",value:"38 mL/min/1,73m²",status:"bad",ref:"DRC G3b"},
+      {label:"Albuminúria",value:"320 mg/g",status:"bad",ref:"Macroalbuminúria"},
+      {label:"HbA1c",value:"8,8%",status:"bad",ref:"Meta individualizada para idoso"},
+      {label:"DCV estabelecida",value:"IAM + angioplastia",status:"bad",ref:"Alto risco"}
+    ],
+    answerBlocks:[
+      {label:"Elegibilidade para dapagliflozina — finalmente sim",content:`<p>Jorge agora tem: DM2 + segunda intensificação + <strong>≥ 40 anos + DCV estabelecida (IAM + angioplastia)</strong>. Critérios preenchidos pelo PCDT 2026.</p><p style="margin-top:8px"><strong>Mas há um porém crítico:</strong> TFG = 38 mL/min/1,73m². A dapagliflozina <strong>não é indicada com TFG < 25</strong> (limite absoluto) — Jorge ainda está dentro. Porém, a <strong>eficácia é reduzida</strong> com TFG < 45 mL/min. A decisão de prescrever deve ponderar benefício cardiorrenal vs. eficácia glicêmica limitada.</p>`},
+      {label:"Ajustes obrigatórios no esquema",content:`<ul><li><strong>Metformina:</strong> TFG 38 → máximo 1 g/dia (850 mg 1x/dia). Suspender se TFG < 30.</li><li><strong>Gliclazida:</strong> TFG 38 → usar com cautela. Risco de hipoglicemia aumentado com DRC. Reduzir dose.</li><li><strong>NPH:</strong> manter, titular para meta de GJ 80–130 mg/dL (ou 90–150 para idoso)</li><li><strong>Dapagliflozina 10 mg:</strong> pode adicionar com benefício cardiorrenal documentado</li></ul>`},
+      {label:"Encaminhamento obrigatório",content:`<p>TFG < 60 com albuminúria = critério de encaminhamento para <strong>nefrologista</strong>. TFG < 25 + encaminhamento conjunto a <strong>endocrinologista + nefrologista</strong>. Jorge ainda está em TFG 38 — encaminhar a nefrologista já.</p>`}
+    ],
+    fluxo:"tx_dapa",
+    sus:"Dapagliflozina agora elegível via PCDT. Disponível mediante critérios documentados. Nefrologista disponível na rede de média complexidade.",
+    sbd:"A SBD teria indicado dapagliflozina 12 anos antes (ao diagnóstico da HAS + DM2 de alto risco). O benefício cardiorrenal que Jorge poderia ter tido foi perdido pela restrição de elegibilidade do PCDT. O IAM e a DRC avançada poderiam ter sido atrasados.",
+    sbdDiverge:true,
+    footerNote:`<em>Desta vez Jorge realmente tenta. Mas o coração já pagou o preço. E o rim está cobrando a conta com juros.</em>`
+  },
+  {
+    id:10, year:"+2 anos", yearFull:"+2 anos · 56 anos", age:56, label:"56 anos",
+    title:"Hemodiálise + AVC isquêmico",
+    subtitle:"Que tratamento ainda é possível nesse cenário?",
+    severity:"danger",
+    vignette:`56 anos. TFG 14 mL/min/1,73m². Em hemodiálise há 4 meses (3x/semana). AVC isquêmico há 3 semanas com hemiparesia leve à direita, em reabilitação. Acamado parcialmente. Família presente. <em>"Doutor, eu devia ter escutado o senhor mais cedo, né?"</em>`,
+    bigQ:"Como reorganizar o tratamento do DM2 em paciente dialítico com AVC? E o que mudaria se Jorge tivesse aderido?",
+    exams:[
+      {label:"TFG",value:"14 mL/min/1,73m²",status:"bad",ref:"DRC G5 — diálise"},
+      {label:"HbA1c",value:"Não confiável em diálise",status:"warn",ref:"Usar GJ + glicemia capilar"},
+      {label:"Estado funcional",value:"Comprometido (AVC)",status:"bad",ref:"—"}
+    ],
+    answerBlocks:[
+      {label:"Reorganização terapêutica em paciente dialítico (PCDT 2026, Quadro 11)",content:`<ul><li><strong>Metformina:</strong> <strong>suspender</strong> — contraindicada com TFG < 30 (risco de acidose lática)</li><li><strong>Gliclazida:</strong> <strong>evitar</strong> — TFG < 20 é limite; em diálise, risco de hipoglicemia grave</li><li><strong>Dapagliflozina:</strong> <strong>suspender</strong> — contraindicada com TFG < 25</li><li><strong>Insulina:</strong> única opção segura em diálise — ajustar doses (necessidade pode reduzir com uremia)</li><li>Meta glicêmica individualizada: idoso comprometido → GJ 90–150 mg/dL, evitar hipoglicemia</li></ul>`},
+      {label:"HbA1c não confiável em diálise",content:`<p>Em diálise, hemácias têm meia-vida reduzida e pode haver anemia e transfusões → HbA1c subestimada. Usar <strong>frutosamina</strong> ou monitoramento por glicemia capilar como alternativa.</p>`},
+      {label:"O que teria mudado com adesão ao tratamento?",content:`<ul><li>HbA1c cronicamente ≤ 7% → redução comprovada de complicações microvasculares (UKPDS, DCCT/EDIC)</li><li>Neuropatia poderia ter sido atrasada ou ausente → sem amputação</li><li>DRC teria progressão mais lenta com controle glicêmico + iSGLT2 desde 2ª linha</li><li>IAM: estatina + PA controlada + iSGLT2 precocemente = redução de eventos CV em 25–35%</li><li>AVC: PA controlada (meta < 130/80 com DM2) + antiagregação pós-IAM poderiam ter prevenido</li></ul>`},
+      {label:"Encaminhamentos e cuidado paliativo",content:`<p>Paciente em diálise + AVC com comprometimento funcional = idoso muito comprometido pelo PCDT 2026. Meta terapêutica: <strong>evitar sintomas, hipoglicemia e hospitalização</strong>. Simplificar regime. Discutir com família e paciente sobre objetivos do cuidado. Envolver nefrologista, cardiologista, neurologista e equipe de reabilitação.</p>`}
+    ],
+    fluxo:null,
+    sus:"Hemodiálise coberta pelo SUS (APAC). Insulina exclusiva em diálise. Reabilitação disponível pela rede de média complexidade.",
+    sbd:"Se a SBD tivesse sido seguida desde os 36 anos (iSGLT2 como segunda linha no alto risco CV), a DRC dialítica e o AVC poderiam ter sido prevenidos ou significativamente retardados. O gap entre o que a evidência indica e o que o SUS financia tem consequências mensuráveis na trajetória de Jorge.",
+    sbdDiverge:true,
+    footerNote:`<em>Jorge tem 56 anos. Pediu para a ACS que estava fazendo visita domiciliar para avisar ao médico que estava com saudade da consulta presencial. E que desta vez ia fazer a dieta. A ACS não teve coragem de rir.</em>`
+  }
+];
+
+/* ══════════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════════ */
+let current = 0;
+let revealed = [];
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER TIMELINE
+══════════════════════════════════════════════════════════════ */
+function buildTimeline() {
+  const nav = document.getElementById('timelineNav');
+  nav.innerHTML = '';
+  cases.forEach((c, i) => {
+    const item = document.createElement('div');
+    const cls = ['tl-item'];
+    if (i < current) cls.push('past');
+    if (i === current) cls.push('active');
+    if (c.severity === 'danger') cls.push('danger');
+    item.className = cls.join(' ');
+    item.title = c.title;
+    item.innerHTML = `<div class="tl-dot"></div><span class="tl-label">${c.year}</span>`;
+    item.onclick = () => { current = i; revealed = []; render(); buildTimeline(); };
+    nav.appendChild(item);
+  });
+  const fill = Math.round((current / (cases.length - 1)) * 100);
+  document.getElementById('progressBar').style.width = fill + '%';
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER CASE
+══════════════════════════════════════════════════════════════ */
+function render() {
+  const c = cases[current];
+  const isRev = revealed.includes(current);
+
+  /* exams */
+  let examsHTML = '';
+  if (c.exams) {
+    const rows = c.exams.map(e => {
+      const cls = e.status === 'ok' ? 'ok' : e.status === 'warn' ? 'warn' : 'bad';
+      return `<div class="data-row">
+        <span class="data-key">${e.label}</span>
+        <span class="data-val ${cls}">${e.value}<span class="data-ref">${e.ref}</span></span>
+      </div>`;
+    }).join('');
+    examsHTML = `<div class="exams-section">
+      <div class="block-lbl">
+        <i class="ti ti-flask" aria-hidden="true"></i> Exames
+      </div>
+      <div class="data-box">${rows}</div>
+    </div>`;
+  }
+
+  /* answer blocks */
+  let ansHTML = '';
+  c.answerBlocks.forEach(b => {
+    if (b.tags) {
+      const tags = b.tags.map(t => `<span class="tag tag-${t.c}">${t.t}</span>`).join('');
+      ansHTML += `<div class="answer-block">
+        <div class="block-lbl">${b.label}</div>
+        <div class="comp-tags">${tags}</div>
+      </div>`;
+    } else {
+      ansHTML += `<div class="answer-block">
+        <div class="block-lbl">${b.label}</div>
+        ${b.content}
+      </div>`;
+    }
+  });
+
+  /* fluxogram */
+  let fluxHTML = '';
+  if (c.fluxo && FLUXOS[c.fluxo]) {
+    fluxHTML = `<div class="fluxo-wrap">
+      <div class="fluxo-hdr">
+        <i class="ti ti-git-branch" aria-hidden="true"></i> Posição no fluxograma PCDT 2026
+      </div>
+      ${FLUXOS[c.fluxo]}
+    </div>`;
+  }
+
+  /* SUS / SBD */
+  const isDiverg = c.sbdDiverge;
+  const sbdHdr = isDiverg
+    ? `<div class="box-hdr"><div class="agree-icon ic-x">✗</div><span class="box-ttl-sbd">SBD 2024/2025</span></div>`
+    : `<div class="box-hdr"><div class="agree-icon ic-check">✓</div><span class="box-ttl-sbd">SBD 2024/2025</span></div>`;
+
+  let susSbdHTML = '';
+  if (c.sus || c.sbd) {
+    susSbdHTML = `<div class="sus-sbd-grid">
+      <div class="sus-box">
+        <div class="box-hdr"><span class="box-ttl-sus">SUS — PCDT 2026</span></div>
+        <p>${c.sus || '—'}</p>
+      </div>
+      <div class="sbd-box${isDiverg ? ' diverge' : ''}">
+        ${sbdHdr}
+        <p>${c.sbd || '—'}</p>
+      </div>
+    </div>`;
+  }
+
+  /* footer note */
+  const footerHTML = c.footerNote
+    ? `<div class="footer-note">${c.footerNote}</div>` : '';
+
+  /* header severity class */
+  const sevMap = { normal:'sev-normal', warning:'sev-warning', bad:'sev-bad', danger:'sev-danger' };
+  const sevCls = sevMap[c.severity] || 'sev-normal';
+
+  document.getElementById('caseCard').innerHTML = `
+    <div class="case-card">
+
+      <div class="year-strip">
+        <span class="year-lbl">Linha do tempo</span>
+        <span class="year-arrow">→</span>
+        <span class="year-val">${c.yearFull}</span>
+      </div>
+
+      <div class="case-header ${sevCls}">
+        <div class="ch-row">
+          <div>
+            <div class="ch-title">${c.title}</div>
+            <div class="ch-subtitle">${c.subtitle}</div>
+          </div>
+          <div class="age-badge">${c.label}</div>
+        </div>
+      </div>
+
+      <div class="case-body">
+
+        <div class="vignette">${c.vignette}</div>
+
+        <div class="question-box">
+          <i class="ti ti-help-circle q-icon" aria-hidden="true"></i>
+          <p class="q-text">${c.bigQ}</p>
+        </div>
+
+        ${c.exams ? examsHTML : ''}
+
+        <button class="reveal-btn${isRev ? ' is-open' : ''}" id="revealBtn" onclick="toggleReveal()">
+          <i class="ti ti-${isRev ? 'eye-off' : 'eye'}" aria-hidden="true"></i>
+          ${isRev ? 'Ocultar resposta e conduta' : 'Ver resposta e conduta'}
+        </button>
+
+        <div class="answer-section${isRev ? ' visible' : ''}" id="answerSection">
+          ${ansHTML}
+          ${fluxHTML}
+          <div class="divider"></div>
+          ${susSbdHTML}
+          ${footerHTML}
+        </div>
+
+        <div class="nav-footer">
+          <button class="nav-btn" onclick="navigate(-1)" ${current === 0 ? 'disabled' : ''}>
+            <i class="ti ti-arrow-left" aria-hidden="true"></i> Anterior
+          </button>
+          <span class="nav-counter">${current + 1} / ${cases.length}</span>
+          <button class="nav-btn" onclick="navigate(1)" ${current === cases.length - 1 ? 'disabled' : ''}>
+            Próximo <i class="ti ti-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ACTIONS
+══════════════════════════════════════════════════════════════ */
+function toggleReveal() {
+  if (!revealed.includes(current)) revealed.push(current);
+  else revealed = revealed.filter(x => x !== current);
+  render();
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < cases.length) {
+    current = next;
+    render();
+    buildTimeline();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════════ */
+buildTimeline();
+render();
+</script>
+</body>
+  <!-- republish -->
+</html>
